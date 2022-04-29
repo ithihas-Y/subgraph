@@ -1,0 +1,24 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: PoolDeployer
+    network: bsc
+    source:
+      address: "0xE9fa9CA98c2652a1Ba7FF42bC4084b4f47FE3191"
+      abi: PoolDeployer
+      startBlock: 17370030
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - PoolDeployerEntity
+      abis:
+        - name: PoolDeployer
+          file: ./abis/PoolDeployer.json
+      eventHandlers:
+        - event: DeployNewNftPool(indexed address)
+          handler: handleDeployNewNftPool
+      file: ./src/mapping.ts
